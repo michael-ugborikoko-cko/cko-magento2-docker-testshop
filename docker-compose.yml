@@ -1,0 +1,35 @@
+version: '2'
+
+networks: 
+  magneto_network:
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-server
+    command: --default-authentication-plugin=mysql_native_password
+    working_dir: /application
+    volumes:
+      - .:/application
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=magento
+      - MYSQL_PASSWORD=magento
+    networks: 
+      - magneto_network
+  website:
+    container_name: magento
+    image: cko_magento
+    build:
+      context: .
+    volumes:
+      - ./apache2/sites-available:/etc/apache2/sites-available
+    networks: 
+      - magneto_network
+    tty: true
+    ports:
+      - 80:80
+    depends_on:
+      - mysql

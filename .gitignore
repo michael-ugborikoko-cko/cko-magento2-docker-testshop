@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+.log
+.lock 
+.tmp
+.o
+.pyc
+.class
+/bin
+/out
+/target
+/node_modules 
+/packages
