@@ -21,7 +21,7 @@ services:
       - magneto_network
   website:
     container_name: magento
-    image: checkout.com/magento
+    image: youngmikelo/cko-magento
     build:
       context: .
     volumes:

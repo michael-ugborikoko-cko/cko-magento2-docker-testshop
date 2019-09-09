@@ -48,14 +48,11 @@ RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 COPY composer/ /root/.composer/
 WORKDIR /var/www/html
 RUN composer create-project --repository=https://repo.magento.com/ magento/project-community-edition app
-RUN mkdir magento
-RUN cp -r app/. /var/www/html/magento
-WORKDIR /var/www/html/magento
-RUN ls /var/www/html/magento
+RUN cp -r app/. /var/www/html/
 RUN find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 RUN find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
 RUN chown -R :www-data .
 RUN chmod u+x bin/magento
-COPY composer/. /var/www/html/magento/
+COPY composer/. /var/www/html/
 EXPOSE 80
 
